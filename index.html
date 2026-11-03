@@ -317,16 +317,16 @@ function kpi(){
   vb.appendChild(vt);
   if(n){
     const rt=document.createElement("div"); rt.className="txt ratio";
-    add(rt,"b","%"+fmtPct(est/TOTAL_VOTERS*100)); add(rt,"span","Türkiye seçmenine oranı");
+    add(rt,"b",fmtPct(est/TOTAL_VOTERS*100)); add(rt,"span","Türkiye seçmenine oranı");
     vb.appendChild(rt);
   }
   k.appendChild(vb);
 }
 
 function fmtPct(p){
-  if(p>=1) return fmt(p,1);
-  if(p>=0.01) return fmt(p,2);
-  return Number(p.toPrecision(2)).toLocaleString("tr-TR",{maximumFractionDigits:12});
+  // virgülden sonra en fazla 3 rakam; bundan küçük değerler "<%0,001" olarak gösterilir
+  if(p<0.0005) return "<%0,001";
+  return "%"+fmt(p,3);
 }
 
 function maskName(n){
